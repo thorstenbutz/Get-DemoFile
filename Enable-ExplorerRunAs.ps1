@@ -3,15 +3,17 @@
     $version = 2013.04.27
     $url = 'www.thorsten-butz.de'; $twitter = $adn = '@thorstenbutz'
 
-    This demo script enables "Run as administrator" for the built-in File Explorer aka "explorer.exe" in Windows NT 6.x.
+    This demo script enables "Run as administrator" for the built-in File Explorer 
+    aka "explorer.exe" in Windows NT 6.x.
     This is accomplished by renaming the registry key as follows:
     'HKEY_CLASSES_ROOT\AppID\{CDCBCFCA-3CDC-436f-A4E2-0E02075250C2}\RunAs'    
 
-  Thanks to Sami Laiho/Tagoror Sundstrom who published this workaround:
-	http://idealinfra.blogspot.fi/2012/09/run-explorer-as-admin.html
+    Thanks to Sami Laiho and Tagoror Sundstrom who published this workaround:
+    http://idealinfra.blogspot.fi/2012/09/run-explorer-as-admin.html
 		
-    For security reasons this key is protected by the "Trusted Installer" ownership. Due to a shortcoming in the 
-    Set-ACL cmdlet, the modfification is done by Helge Klein's freeware tool SETACL.EXE:
+    For security reasons this key is protected by the "Trusted Installer" ownership.
+    Due to a shortcoming in the Set-ACL cmdlet, the modfification is done by Helge Klein's 
+    freeware tool SETACL.EXE:
     http://helgeklein.com/setacl/
     Thank you, Helge, for providing this cute tool. 
 #>
@@ -25,7 +27,7 @@ function psunzip ($zip) {
 $u = 'http://files.helgeklein.com/downloads/SetACL/current/SetACL%20(executable%20version).zip'
 
 # Getting simple file name .. 
-New-Variable "f" -Value ((Get-Variable "u").Value.split("/") | select -l 1)
+New-Variable "f" -Value ((Get-Variable "u").Value.split("/") | Select-Object -last 1)
 
 Push-Location
 
@@ -36,7 +38,7 @@ mkdir $p | Out-Null ; Set-Location $p
 "WORKING DIRECTORY: $pwd"
 
 # Downloading SETACL.EXE
-$client = new-object System.Net.WebClient
+$client = New-Object System.Net.WebClient
 $client.DownloadFile( $u, "$p\$f" ) 
 
 psunzip "$p\$f"
