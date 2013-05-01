@@ -48,7 +48,7 @@ elseif ($env:PROCESSOR_ARCHITECTURE -match "32") { $arch = "32 bit" }
 else   {"Unknown CPU type, quitting .."; exit }
 
 $setacl = (Get-ChildItem $p -Filter setacl.exe -Recurse | Where-Object { $_.Fullname -match $arch }).FullName
-if ($setacl.count -ne 1) { SETACL.EXE not found, quitting; exit }
+if ($setacl.count -ne 1) { "SETACL.EXE not found, quitting."; exit }
 "PATH TO SETACL.EXE: $setacl"
 
 $key = 'HKEY_CLASSES_ROOT\AppID\{CDCBCFCA-3CDC-436f-A4E2-0E02075250C2}'
